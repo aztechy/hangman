@@ -1,0 +1,10 @@
+<div style="display: inline" ng-repeat="char in word">
+  <span ng-bind="char.letter" ng-show="char.display"></span>
+  <span ng-show="!char.display">*</span>
+</div>
+
+<div>
+  <form ng-submit="makeGuess()">
+    <span>Guess: </span><input style="text-align: center" ng-model="guess" maxlength=1 type="text" size="1" /></span>
+  </form>
+</div>
