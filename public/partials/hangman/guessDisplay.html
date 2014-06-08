@@ -5,6 +5,22 @@
 
 <div>
   <form ng-submit="makeGuess()">
-    <span>Guess: </span><input style="text-align: center" ng-model="guess" maxlength=1 type="text" size="1" /></span>
+    <span>Guess: </span><input style="text-align: center" ng-model="guess" maxlength=1 type="text" size="1" ng-disabled="!canGuess()" /></span>
   </form>
+</div>
+
+<div>
+  <div>
+    Guesses: <span ng-bind="lettersGuessed.join(', ')"></span>
+  </div>
+</div>
+
+<div ng-show="errors.length">
+  <div>
+    Errors: <span ng-repeat="error in errors">X</span>
+  </div>
+</div>
+
+<div ng-show="!canGuess()">
+  <button type="button" ng-click="reset()">Reset</button>
 </div>
