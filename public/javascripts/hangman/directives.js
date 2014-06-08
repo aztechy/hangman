@@ -21,25 +21,27 @@ angular.module('hm.directives', []).
          * Process the users guess, making visible the guess if we have matches.
          */
         scope.makeGuess = function() {
-          // See if user already made a guess with this letter and not penalize them.
-          if ($filter('filter')(scope.lettersGuessed, {$: scope.guess}).length) {
-            // Todo: Setup warning.
-          } else {
-            // Look for the letter within our wordCollection and toggle display flag.
-            var matches = $filter('filter')(scope.word, {letter: scope.guess});
-            if (matches.length) {
-              angular.forEach(matches, function(char, index) {
-                char.display = true;
-              });
+          if (scope.guess) {
+            // See if user already made a guess with this letter and not penalize them.
+            if ($filter('filter')(scope.lettersGuessed, {$: scope.guess}).length) {
+              // Todo: Setup warning.
             } else {
-              scope.errors.push(scope.guess);
-            }
+              // Look for the letter within our wordCollection and toggle display flag.
+              var matches = $filter('filter')(scope.word, {letter: scope.guess});
+              if (matches.length) {
+                angular.forEach(matches, function(char, index) {
+                  char.display = true;
+                });
+              } else {
+                scope.errors.push(scope.guess);
+              }
           
-            // Add the latest guess to the list.
-            scope.lettersGuessed.push(scope.guess);
+              // Add the latest guess to the list.
+              scope.lettersGuessed.push(scope.guess);
 
-            // Clear out the guess to allow for more guessing.
-            scope.guess = '';
+              // Clear out the guess to allow for more guessing.
+              scope.guess = '';
+            }
           }
         }
         
@@ -51,7 +53,10 @@ angular.module('hm.directives', []).
           var lettersFound = $filter('filter')(scope.word, {display: true});
           
           // If we've errored out or solved, no more guessing allowed.
-          if ((scope.errors.length >= 3) || (scope.theWord.length == lettersFound.length)) {
+          if ((scope.errors.length > 2) || (scope.theWord.length == lettersFound.length)) {
+            if (scope.errors.length > 2) {
+              showAnswer();
+            }
             return false;
           }
           
@@ -88,6 +93,14 @@ angular.module('hm.directives', []).
             });
           }
           scope.word = wordCollection;          
+        }
+        
+        function showAnswer() {
+          angular.forEach(scope.word, function(char) {
+            if (!char.display) {
+              char.display = true;
+            }
+          });
         }
       }
     }

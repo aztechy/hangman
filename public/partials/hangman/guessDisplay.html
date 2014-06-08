@@ -1,26 +1,28 @@
-<div style="display: inline" ng-repeat="char in word">
-  <span ng-bind="char.letter" ng-show="char.display"></span>
-  <span ng-show="!char.display">*</span>
-</div>
-
-<div>
-  <form ng-submit="makeGuess()">
-    <span>Guess: </span><input style="text-align: center" ng-model="guess" maxlength=1 type="text" size="1" ng-disabled="!canGuess()" /></span>
-  </form>
-</div>
-
-<div>
-  <div>
-    Guesses: <span ng-bind="lettersGuessed.join(', ')"></span>
+<div class="container">
+  <div style="display: inline" ng-repeat="char in word">
+    <span ng-bind="char.letter" ng-show="char.display"></span>
+    <span ng-show="!char.display">*</span>
   </div>
-</div>
 
-<div ng-show="errors.length">
   <div>
-    Errors: <span ng-repeat="error in errors">X</span>
+    <form ng-submit="makeGuess()">
+      <span>Guess: </span><input style="text-align: center" ng-model="guess" maxlength=1 type="text" size="1" ng-disabled="!canGuess()" /></span>
+    </form>
   </div>
-</div>
 
-<div ng-show="!canGuess()">
-  <button type="button" ng-click="reset()">Reset</button>
+  <div>
+    <div>
+      Guesses: <span ng-bind="lettersGuessed.join(', ')"></span>
+    </div>
+  </div>
+
+  <div ng-show="errors.length">
+    <div>
+      Errors: <span ng-repeat="error in errors">X</span>
+    </div>
+  </div>
+
+  <div ng-show="!canGuess()">
+    <button type="button" ng-click="reset()">Reset</button>
+  </div>
 </div>
