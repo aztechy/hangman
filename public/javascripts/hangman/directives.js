@@ -4,9 +4,7 @@ angular.module('hm.directives', []).
   directive('hmGuessOptions', ['$filter', function($filter) {
     return {
       restrict: 'E',
-      scope: {
-        theWord: '=word'
-      },
+      scope: {},
       templateUrl: '/partials/hangman/guessDisplay.html',
       link: function(scope, element, attrs) {
         // Keep track failed guesses
@@ -15,8 +13,6 @@ angular.module('hm.directives', []).
         // Keep track of the letters used to guess
         scope.lettersGuessed = [];
 
-        setupWord();
-        
         /**
          * Process the users guess, making visible the guess if we have matches.
          */
@@ -63,6 +59,9 @@ angular.module('hm.directives', []).
           return true;
         }
         
+        /**
+         * Basic POC dictionary to use.
+         */
         scope.dictionary = [
           'scrabble',
           'love',
@@ -71,12 +70,18 @@ angular.module('hm.directives', []).
           'foobar'
         ];
   
+        /**
+         * Reset the application to allow for more guessing.
+         */
         scope.reset = function() {
           scope.theWord = scope.dictionary[getRandomInt(0,4)];
           scope.errors = [];
           scope.lettersGuessed = [];
           setupWord();
         }
+  
+        scope.reset();
+        
   
         function getRandomInt(min, max) {
           return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -95,6 +100,9 @@ angular.module('hm.directives', []).
           scope.word = wordCollection;          
         }
         
+        /**
+         * Mainly for when user has error'd out, show them the answer
+         */
         function showAnswer() {
           angular.forEach(scope.word, function(char) {
             if (!char.display) {

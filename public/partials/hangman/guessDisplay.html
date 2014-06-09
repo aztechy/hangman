@@ -1,7 +1,9 @@
 <div class="container">
-  <div style="display: inline" ng-repeat="char in word">
-    <span ng-bind="char.letter" ng-show="char.display"></span>
-    <span ng-show="!char.display">*</span>
+  <div class="guessContainer">
+    <div style="display: inline" ng-repeat="char in word">
+      <span ng-bind="char.letter" ng-show="char.display"></span>
+      <span ng-show="!char.display">*</span>
+    </div>
   </div>
 
   <div>
@@ -18,11 +20,11 @@
 
   <div ng-show="errors.length">
     <div>
-      Errors: <span ng-repeat="error in errors">X</span>
+      Errors: <span ng-repeat="error in errors" class="bg-danger">X</span>
     </div>
   </div>
 
   <div ng-show="!canGuess()">
-    <button type="button" ng-click="reset()">Reset</button>
+    <button class="btn btn-primary" type="button" ng-click="reset()">Reset</button>
   </div>
 </div>
