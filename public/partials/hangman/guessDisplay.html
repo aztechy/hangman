@@ -6,25 +6,27 @@
     </div>
   </div>
 
-  <div>
-    <form ng-submit="makeGuess()">
-      <span>Guess: </span><input style="text-align: center" ng-model="guess" maxlength=1 type="text" size="1" ng-disabled="!canGuess()" /></span>
-    </form>
-  </div>
-
-  <div>
+  <div id="guessControls">
     <div>
-      Guesses: <span ng-bind="lettersGuessed.join(', ')"></span>
+      <form ng-submit="makeGuess()">
+        <span>Guess: </span><input style="text-align: center" ng-model="guess" maxlength=1 type="text" size="1" ng-disabled="!canGuess()" /></span>
+      </form>
     </div>
-  </div>
 
-  <div ng-show="errors.length">
     <div>
-      Errors: <span ng-repeat="error in errors" class="bg-danger">X</span>
+      <div>
+        Guesses: <span ng-bind="lettersGuessed.join(', ')"></span>
+      </div>
     </div>
-  </div>
 
-  <div ng-show="!canGuess()">
-    <button class="btn btn-primary" type="button" ng-click="reset()">Reset</button>
+    <div ng-show="errors.length">
+      <div>
+        Errors: <span ng-repeat="error in errors" class="bg-danger">X</span>
+      </div>
+    </div>
+
+    <div ng-show="!canGuess()">
+      <button class="btn btn-primary" type="button" ng-click="reset()">Reset</button>
+    </div>
   </div>
 </div>
